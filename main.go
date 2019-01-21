@@ -22,16 +22,21 @@ func main() {
 	output := flag.Args()[1]
 
 	list := readIntFile(input)
-	bogoSort(list)
+	count := bogoSort(list)
+	fmt.Println("exchange count: ", count*len(list))
 	writeIntFile(output, list)
 
 }
 
-func bogoSort(a []int) {
+func bogoSort(a []int) int {
 
+	count := 0
 	for !sort.IntsAreSorted(a) {
+		count++
 		shuffle(a)
+		showCalm(a)
 	}
+	return count
 
 }
 
@@ -44,6 +49,15 @@ func shuffle(a []int) {
 		k = rand.Intn(i + 1)
 		a[i], a[k] = a[k], a[i]
 	}
+
+}
+
+func showCalm(a []int) {
+
+	for i := range a {
+		fmt.Printf("%d ", a[i])
+	}
+	fmt.Println("")
 
 }
 
